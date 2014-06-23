@@ -168,6 +168,14 @@ namespace :install do
     brew_install 'tmux', :requires => '>= 1.8'
   end
 
+  
+  desc 'Compile ycm'
+  task :compile_ycm do
+      step 'complile-ycm'
+      system('cd vim/bundle/YouCompleteMe; git submodule update --init --recursive')
+      system('cd vim/bundle/YouCompleteMe; ./install.sh --clang-completer')
+  end
+
   desc 'Install MacVim'
   task :macvim do
     step 'MacVim'
@@ -250,6 +258,7 @@ task :install do
 
   # Install Vundle and bundles
   Rake::Task['install:vundle'].invoke
+  # Rake::Task['install:compile_ycm'].invoke
 
   step 'iterm2 colorschemes'
   colorschemes = `defaults read com.googlecode.iterm2 'Custom Color Presets'`
