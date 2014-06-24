@@ -7,6 +7,8 @@ inoremap jj <ESC>
 "set hlsearch
 "nmap <leader>hl :let @/ = ""<CR>
 
+let base16colorspace=256  " Access colors present in 256 colorspace
+
 " gui settings
 if (&t_Co == 256 || has('gui_running'))
   if ($TERM_PROGRAM == 'iTerm.app')
@@ -31,3 +33,9 @@ function! s:RemoveConflictingAlignMaps()
 endfunction
 command! -nargs=0 RemoveConflictingAlignMaps call s:RemoveConflictingAlignMaps()
 silent! autocmd VimEnter * RemoveConflictingAlignMaps
+
+set backspace=2
+syntax enable
+set background=dark
+
+colorscheme solarized

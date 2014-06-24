@@ -1,1 +1,4 @@
-Bundle 'wikitopian/hardmode'
+Bundle 'terryma/vim-multiple-cursors'
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'chriskempson/base16-vim'
+Bundle 'mattn/emmet-vim'
