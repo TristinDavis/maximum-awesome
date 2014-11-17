@@ -39,3 +39,4 @@ syntax enable
 set background=dark
 
 colorscheme solarized
+let JSHintUpdateWriteOnly=1
