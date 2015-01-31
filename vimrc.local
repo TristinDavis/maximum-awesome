@@ -73,6 +73,10 @@ nnoremap <leader>] :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 
 noremap <leader>i :s/^/\
 
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
 autocmd BufWritePost *
       \ if filereadable('tags') |
       \   call system('ctags -a '.expand('%')) |
