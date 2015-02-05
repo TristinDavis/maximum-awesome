@@ -54,7 +54,7 @@ let g:EasyGrepCommand=1
 let g:syntastic_python_python_exec = $HOME.'/.pyenv/shims/python3'
 
 " Javascript checker
-let g:syntastic_javascript_checkers = ['jshint', 'jslint']
+let g:syntastic_javascript_checkers = ['jshint']
 
 " Group error
 let g:syntastic_aggregate_errors = 1
@@ -65,6 +65,14 @@ let &colorcolumn="80,120,200"
 " Hardtime
 let g:hardtime_default_on = 1
 nmap <F8> :TagbarToggle<CR>
+
+" Delete on char without yank
+nnoremap x "_x
+vnoremap x "_xgv
+nnoremap X "_dd
+vnoremap X "_X
+nnoremap <BS> "_X"
+nnoremap <Del> "_x"
 
 " List all ctag matches for the word under the cursor
 map <leader>J :CtrlPTag<CR><C-\>w
