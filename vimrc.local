@@ -89,3 +89,5 @@ autocmd BufWritePost *
       \ if filereadable('tags') |
       \   call system('ctags -a '.expand('%')) |
       \ endif
+
+let g:indentLine_color_term = 31
