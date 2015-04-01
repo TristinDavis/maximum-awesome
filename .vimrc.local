@@ -1,0 +1,124 @@
+  set nocursorline " don't highlight current line
+
+  " keyboard shortcuts
+  inoremap jj <ESC>
+
+  " highlight search
+  "set hlsearch
+  "nmap <leader>hl :let @/ = ""<CR>
+
+  let base16colorspace=256  " Access colors present in 256 colorspace
+
+  " gui settings
+  if (&t_Co == 256 || has('gui_running'))
+    if ($TERM_PROGRAM == 'iTerm.app')
+      colorscheme solarized
+    else
+      colorscheme desert
+    endif
+  endif
+
+  " Disambiguate ,a & ,t from the Align plugin, making them fast again.
+  "
+  " This section is here to prevent AlignMaps from adding a bunch of mappings
+  " that interfere with the very-common ,a and ,t mappings. This will get run
+  " at every startup to remove the AlignMaps for the *next* vim startup.
+  "
+  " If you do want the AlignMaps mappings, remove this section, remove
+  " ~/.vim/bundle/Align, and re-run rake in maximum-awesome.
+  function! s:RemoveConflictingAlignMaps()
+    if exists("g:loaded_AlignMapsPlugin")
+      AlignMapsClean
+    endif
+  endfunction
+  command! -nargs=0 RemoveConflictingAlignMaps call s:RemoveConflictingAlignMaps()
+  silent! autocmd VimEnter * RemoveConflictingAlignMaps
+
+  set backspace=2
+  syntax enable
+  set background=dark
+
+  colorscheme solarized
+
+
+  " ctrlp ignore
+  let g:ctrlp_custom_ignore = {
+    \ 'dir': '\v(.git|web|cache|vendor|node_modules|lib|tmp|bin|var|test|docs|build|_site|Proxy)$',
+    \ }
+
+  let JSHintUpdateWriteOnly=1
+
+  let g:EasyGrepCommand=1
+
+  " Python checker
+  let g:syntastic_python_python_exec = $HOME.'/.pyenv/shims/python3'
+
+  " Javascript checker
+  let g:syntastic_javascript_checkers = ['jshint']
+  " let g:syntastic_php_checkers = ['phpmd', 'phpcs']
+  let g:syntastic_php_phpcs_exe="phpcs"
+  let g:syntastic_php_checkers=['php', 'phpmd', 'phpcs']
+  let g:syntastic_php_phpmd_args = "codesize, controversial, design, naming, unusedcode"
+  let g:syntastic_check_on_open=0
+  let g:syntastic_auto_loc_list=0
+  let g:syntastic_aggregate_errors = 1
+  " Group error
+  let g:syntastic_aggregate_errors = 1
+
+  " highlight ColorColumn guibg=Grey14
+  let &colorcolumn="80,120,200"
+
+  " Hardtime
+  let g:hardtime_default_on = 0
+  nmap <F8> :TagbarToggle<CR>
+
+  " Delete on char without yank
+  nnoremap x "_x
+  vnoremap x "_xgv
+  nnoremap X "_dd
+  vnoremap X "_X
+  nnoremap <BS> "_X"
+  nnoremap <Del> "_x"
+
+  " List all ctag matches for the word under the cursor
+  map <leader>J :CtrlPTag<CR><C-\>w
+
+  nnoremap <leader>] :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+
+  noremap <leader>i :s/^/\
+
+  let g:UltiSnipsExpandTrigger="<tab>"
+  let g:UltiSnipsJumpForwardTrigger="<c-b>"
+  let g:UltiSnipsJumpBackwardTrigger="<c-v>"
+
+  let g:UltiSnipsEditSplit="vertical"
+  " let g:snipMate = {}
+  " let g:snipMate.scope_aliases = {}
+  " let g:snipMate.scope_aliases['php'] = 'php'
+
+  autocmd BufWritePost *
+        \ if filereadable('tags') |
+        \   call system('ctags -a '.expand('%')) |
+        \ endif
+
+  let g:indentLine_color_term = 31
+  autocmd BufWritePost * silent! :call SyncUploadFile()
+  " let g:snips_author = 'Simon Paitrault <simon.paitrault@iadvize.com>'
+  let g:pdv_template_dir = $HOME ."/.vim/bundle/pdv/templates_snip"
+  nnoremap <buffer> <leader>d :call pdv#DocumentWithSnip()<CR>
+  inoremap <Leader>e <C-O>:call PhpExpandClass()<CR>
+  noremap <Leader>e :call PhpExpandClass()<CR>
+
+  vmap <Enter> <Plug>(EasyAlign)
+  nmap ga <Plug>(EasyAlign)
+
+  let g:vdebug_options = {
+        \ 'path_maps': {
+        \   "/space/community.iadvize.com/Deploy/releases/20150327154320": "/Users/Simon/work/iAdvize/community-service",
+        \   "/space/iadvize.com/Deploy/releases/20150330162353": "/Users/Simon/work/iAdvize/core-env/www/"
+        \ },
+      \ 'port': 9001
+        \}
+
+  nnoremap <leader>] :CtrlPtjump<CR>
+  vnoremap <leader>] :CtrlPtjumpVisual<CR>
